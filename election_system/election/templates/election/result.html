@@ -1,0 +1,16 @@
+<!-- In templates/election/result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Election Results</title>
+</head>
+<body>
+    <h1>Results for {{ election.name }}</h1>
+    <ul>
+        {% for candidate in candidates %}
+            <li>{{ candidate.name }} - Votes: {{ candidate.vote_count }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

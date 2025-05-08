@@ -1,0 +1,22 @@
+<h1>Results for {{ election.title }}</h1>
+<p>{{ election.description }}</p>
+
+<h2>Results</h2>
+<table>
+    <tr>
+        <th>Candidate</th>
+        <th>Ballot</th>
+        <th>Votes</th>
+        <th>Percentage</th>
+        <th>Rank</th>
+    </tr>
+    {% for result in results %}
+    <tr>
+        <td>{{ result.candidate.user.username }}</td>
+        <td>{{ result.ballot.title }}</td>
+        <td>{{ result.vote_count }}</td>
+        <td>{{ result.percentage }}%</td>
+        <td>{{ result.ranking }}</td>
+    </tr>
+    {% endfor %}
+</table>

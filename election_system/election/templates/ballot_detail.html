@@ -1,0 +1,22 @@
+<!-- election/templates/ballot_list.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ballot List</title>
+</head>
+<body>
+
+    <h1>Ballot List</h1>
+    
+    <ul>
+        {% for ballot in ballots %}
+            <li><a href="{% url 'ballot_detail' ballot_id=ballot.id %}">{{ ballot.title }}</a></li>
+        {% empty %}
+            <li>No ballots available.</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

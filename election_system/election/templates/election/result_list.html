@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Election Results</title>
+
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <h1>Election Results</h1>
+
+    {% if results %}
+        {% for result in results %}
+            <h2>{{ result.election.name }}</h2>
+
+            {% if result.total_votes == 0 %}
+                <p>No votes cast yet.</p>
+            {% else %}
+                <p>Total Votes: {{ result.total_votes }}</p>
+                <ul>
+                    {% for item in result.candidates %}
+                        <li class="{% if item.is_winner %}winner{% endif %}">
+                            {{ item.candidate.name }} — {{ item.votes }} vote{{ item.votes|pluralize }} 
+                            ({{ item.percentage }}%)
+                            {% if item.is_winner %} 🏆 Winner{% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>No results available yet.</p>
+    {% endif %}
+</body>
+</html>

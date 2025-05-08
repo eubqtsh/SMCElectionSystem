@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vote</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <h1>Ongoing Elections - Available Ballots</h1>
+
+    {% if elections %}
+        {% for election in elections %}
+            <h2>{{ election.title }}</h2>
+            <p>{{ election.description }}</p>
+            <ul>
+                {% for ballot in election.ballots.all %}
+                    <li>
+                        <a href="{% url 'vote' ballot.id %}">{{ ballot.title }}</a>
+                    </li>
+                {% empty %}
+                    <li>No ballots available for this election.</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    {% else %}
+        <p>No ongoing elections available.</p>
+    {% endif %}
+</body>
+</html>

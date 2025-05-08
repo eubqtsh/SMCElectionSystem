@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vote for {{ ballot.title }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #007BFF;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        /* Container for content */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Heading Styling */
+        h1 {
+            text-align: center;
+            color: #007BFF;
+            margin-bottom: 30px;
+        }
+
+        /* Candidate Card Styling */
+        .candidate {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .candidate h3 {
+            margin-top: 0;
+            color: #0056b3;
+        }
+
+        .candidate p {
+            color: #333;
+            margin: 8px 0;
+        }
+
+        /* Form and Button Styling */
+        form {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        /* No candidates message */
+        .no-candidates {
+            text-align: center;
+            color: #666;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Include Navbar -->
+    {% include 'navbar.html' %}
+
+    <div class="container">
+        <h1>Vote for: {{ ballot.title }}</h1>
+
+        {% if candidates %}
+            {% for candidate in candidates %}
+                <div class="candidate">
+                    <h3>{{ candidate.user.get_full_name }}</h3>
+                    <p><strong>Position:</strong> {{ candidate.position }}</p>
+                    <p><strong>Manifesto:</strong> {{ candidate.manifesto }}</p>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <input type="hidden" name="candidate_id" value="{{ candidate.id }}">
+                        <button type="submit">Vote</button>
+                    </form>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-candidates">No candidates available for this ballot.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

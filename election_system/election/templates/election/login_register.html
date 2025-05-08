@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login / Register</title>
+</head>
+<body>
+    <h2>{% if show_register %}Register{% else %}Login{% endif %}</h2>
+
+    {% if login_error %}
+        <p style="color: red;">{{ login_error }}</p>
+    {% endif %}
+    {% if login_success %}
+        <p style="color: green;">{{ login_success }}</p>
+    {% endif %}
+
+    {% if show_register %}
+        <form method="post">
+            {% csrf_token %}
+            {{ register_form.as_p }}
+            <button type="submit" name="register_submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="?login=true">Login here</a></p>
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            <p><label>Username:</label> <input type="text" name="username" required></p>
+            <p><label>Password:</label> <input type="password" name="password" required></p>
+            <button type="submit" name="login_submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="?register=true">Register here</a></p>
+    {% endif %}
+</body>
+</html>
